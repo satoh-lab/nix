@@ -26,6 +26,7 @@ home-manager switch --flake .
 
 ## Develop
 
+- All develop environment templates are located in `envs`.
 - Copy the template files for the corresponding language to the project's root directory.
 - Run `direnv allow`.
 - Entering the directory will automatically activate the development environment.

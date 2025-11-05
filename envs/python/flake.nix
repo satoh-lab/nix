@@ -26,8 +26,6 @@
           shellHook = ''
             echo "$(uv --version)"
             echo "$(python --version)"
-            # python的某些包依赖C++标准库，需要手动链接
-            export LD_LIBRARY_PATH=$NIX_LD_LIBRARY_PATH
           '';
         };
       }

@@ -39,7 +39,6 @@
             pkg-config
           ];
 
-          # 强制 Rust build.rs 使用 GCC11
           shellHook = ''
             export RUST_SRC_PATH=${
               pkgs.rust-bin.stable.latest.default.override {
