@@ -24,8 +24,6 @@
 
   home.packages = with pkgs; [
     fastfetchMinimal
-    direnv
-    nix-direnv
   ];
 
   home.stateVersion = "25.05";

@@ -11,6 +11,14 @@
       enableFishIntegration = true;
     };
 
+    # The environment switcher
+    direnv = {
+      enable = true;
+      nix-direnv.enable = true;
+      enableBashIntegration = true;
+      # enableFishIntegration = true;
+    };
+
     # A command-line fuzzy finder
     fzf = {
       enable = true;

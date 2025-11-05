@@ -6,6 +6,15 @@
 sh <(curl --proto '=https' --tlsv1.2 -L https://nixos.org/nix/install) --no-daemon
 ```
 
+> Run `. ~/.nix-profile/etc/profile.d/nix.sh` to enable nix in bash immediately.
+
+Enable experimental features:
+
+```bash
+mkdir -p ~/.config/nix
+echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
+```
+
 ### Apply flakes
 
 Inside this directory, run

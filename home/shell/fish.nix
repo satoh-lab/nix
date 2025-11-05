@@ -5,6 +5,16 @@
   ];
 
   programs = {
+    bash = {
+      enable = true;
+      initExtra = ''
+        # if it is interactive shell and fish exists，auto launch fish
+        if [[ $- == *i* ]] && command -v fish &> /dev/null && [[ -z "$FISH_VERSION" ]]; then
+          exec fish
+        fi
+      '';
+    };
+
     fish = {
       enable = true;
       shellAbbrs = {
@@ -18,7 +28,6 @@
       };
       shellInit = ''
         zoxide init fish | source
-        export PATH="$HOME/.local/bin:$PATH"
         set -g fish_color_command = blue --italics
         set -g fish_color_quote = yellow --italics
         # only print pokemons on interactive shells
@@ -40,6 +49,12 @@
       ];
       functions = {
         fish_greeting = "";
+        fish_config = {
+          body = ''
+            echo "fish_config is disabled"
+            return 1
+          '';
+        };
       };
     };
   };
