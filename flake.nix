@@ -7,20 +7,14 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # https://github.com/catppuccin/nix
-    catppuccin = {
-      url = "github:catppuccin/nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
   outputs = inputs@{
     nixpkgs,
     home-manager,
-    catppuccin,
     ...
   }: let
-    username = "yang";
-    useremail = "norepfy@gmail.com";
+    username = "<your-user-name>";
+    useremail = "<your-user-email>";
     system = "x86_64-linux";
     pkgs = nixpkgs.legacyPackages.${system};
     specialArgs = { inherit username useremail; };

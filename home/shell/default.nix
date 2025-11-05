@@ -16,6 +16,7 @@
       enable = true;
       nix-direnv.enable = true;
       enableBashIntegration = true;
+      # the direnv package automatically gets loaded in Fish
       # enableFishIntegration = true;
     };
 

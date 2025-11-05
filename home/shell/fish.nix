@@ -29,7 +29,6 @@
       shellAbbrs = {
         cd = "z";
         # cat = "bat";
-        zed = "zeditor";
       };
       shellAliases = {
         "ls" = "eza";

@@ -17,7 +17,9 @@ echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
 
 ### Apply flakes
 
-NOTE: backup your `.bashrc` & `.profile` first, `home-manager` will take charge of these files.
+NOTES:
+- Backup your `.bashrc` & `.profile` first, `home-manager` will take charge of these files.
+- Find `username` and `useremail` in `flake.nix` and change them to your own ones.
 
 Inside this directory, run
 

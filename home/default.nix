@@ -3,7 +3,6 @@
   imports = [
     ./shell
     ./archive.nix
-    ./theme.nix
   ];
 
   home.username = username;
