@@ -4,10 +4,19 @@
     krabby
   ];
 
+  # warn: force to overwrite existing files
+  home.file.".bashrc".force = true;
+  home.file.".profile".force = true;
+
   programs = {
     bash = {
       enable = true;
       initExtra = ''
+        # the profile added by Nix Installer
+        if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then
+          . $HOME/.nix-profile/etc/profile.d/nix.sh;
+        fi
+
         # if it is interactive shell and fish exists，auto launch fish
         if [[ $- == *i* ]] && command -v fish &> /dev/null && [[ -z "$FISH_VERSION" ]]; then
           exec fish
@@ -49,12 +58,7 @@
       ];
       functions = {
         fish_greeting = "";
-        fish_config = {
-          body = ''
-            echo "fish_config is disabled"
-            return 1
-          '';
-        };
+        fish_config = "";
       };
     };
   };
