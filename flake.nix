@@ -39,9 +39,9 @@
 
     substituters = [
       # replace official cache with a mirror located in China
-      "https://cache.nixos.org"
       "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
       "https://mirror.sjtu.edu.cn/nix-channels/store"
+      "https://cache.nixos.org"
     ];
   };
 }

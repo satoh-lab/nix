@@ -35,8 +35,7 @@
           ];
 
           buildInputs = with pkgs; [
-            openssl
-            pkg-config
+            # runtime dependencies
           ];
 
           shellHook = ''
