@@ -40,17 +40,6 @@ home-manager switch --flake .
 ## Develop
 
 - All develop environment templates are located in `envs`.
-- Copy the template files (`.envrc` & `flake.nix`) for the corresponding language to the project's root directory.
-- Run `direnv allow`.
+- Copy the template files (`flake.nix` & `justfile`) for the corresponding language to the project's root directory.
+- Run `just dev`.
 - Entering the directory will automatically activate the development environment.
-
-### Python
-
-- Run `uv init --bare` to create `pyproject.toml`.
-- Run `uv add <packge-names>` to add dependencies.
-- If `requirements.txt` exists, use add --req  `uv add --requirements requirements.txt`.
-
-### Node.js
-
-- Run `pnpm add <package-names>` to add dependencies.
-- Run `pnpm i` to install dependencies.

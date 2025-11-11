@@ -1,0 +1,9 @@
+# list commands
+default:
+    @just --list
+
+# generate .envrc & run `direnv allow`
+dev:
+    @echo 'use flake' > .envrc
+    @echo "✅ Running direnv allow..."
+    direnv allow
