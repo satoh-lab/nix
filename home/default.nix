@@ -28,6 +28,10 @@
     # Handy way to save and run project-specific commands
     # Similar to Makefile .PHONY
     just
+
+    # An extremely fast Python package and project manager
+    uv
+    # pixi # try pixi as well
   ];
 
   home.stateVersion = "25.05";
