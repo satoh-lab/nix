@@ -1,18 +1,20 @@
 ## Install
 
-### Single-user installation (recommended)
+### Multi-user installation (recommended)
+
+> Skip this step if `nix store info` already works.
 
 ```bash
-sh <(curl --proto '=https' --tlsv1.2 -L https://nixos.org/nix/install) --no-daemon
+NIX_BUILD_GROUP_ID=40000 NIX_FIRST_BUILD_UID=40001 sh <(curl --proto '=https' --tlsv1.2 -L https://nixos.org/nix/install) --daemon
 ```
 
-> Run `. ~/.nix-profile/etc/profile.d/nix.sh` to enable nix in bash immediately.
+> The default `GID=30000` is occupied on our servers, use `40000` instead.
 
 Enable experimental features:
 
 ```bash
-mkdir -p ~/.config/nix
-echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
+echo 'experimental-features = nix-command flakes auto-allocate-uids
+auto-allocate-uids = true' | sudo tee -a /etc/nix/nix.conf
 ```
 
 ### Apply flakes

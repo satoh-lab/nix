@@ -13,8 +13,10 @@
     home-manager,
     ...
   }: let
-    username = "<your-user-name>";
-    useremail = "<your-user-email>";
+    #username = "<your-user-name>";
+    #useremail = "<your-user-email>";
+    username = "yang";
+    useremail = "norepfy@gmail.com";
     system = "x86_64-linux";
     pkgs = nixpkgs.legacyPackages.${system};
     specialArgs = { inherit username useremail; };

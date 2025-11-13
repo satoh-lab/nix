@@ -17,6 +17,8 @@
           . $HOME/.nix-profile/etc/profile.d/nix.sh;
         fi
 
+        export PATH=$HOME/.local/bin:$PATH
+
         # if it is interactive shell and fish exists，auto launch fish
         if [[ $- == *i* ]] && command -v fish &> /dev/null && [[ -z "$FISH_VERSION" ]]; then
           exec fish
