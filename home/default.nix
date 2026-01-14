@@ -1,4 +1,4 @@
-{ pkgs, username, useremail, ... }:
+{ nixpkgs, pkgs, username, useremail, ... }:
 {
   imports = [
     ./shell
@@ -7,6 +7,8 @@
 
   home.username = username;
   home.homeDirectory = "/home/${username}";
+
+  nixpkgs.config.allowUnfree = true;
 
   programs.home-manager.enable = true;
 
@@ -23,6 +25,7 @@
 
   home.packages = with pkgs; [
     fastfetchMinimal
+    ripgrep
     # Simple, fast and user-friendly alternative to find
     fd
     # Handy way to save and run project-specific commands
@@ -32,6 +35,9 @@
     # An extremely fast Python package and project manager
     uv
     # pixi # try pixi as well
+
+    # JavaScript runtime
+    bun
   ];
 
   home.stateVersion = "25.05";

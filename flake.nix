@@ -13,10 +13,8 @@
     home-manager,
     ...
   }: let
-    #username = "<your-user-name>";
-    #useremail = "<your-user-email>";
-    username = "yang";
-    useremail = "norepfy@gmail.com";
+    username = "<your-user-name>";
+    useremail = "<your-user-email>";
     system = "x86_64-linux";
     pkgs = nixpkgs.legacyPackages.${system};
     specialArgs = { inherit username useremail; };
@@ -30,20 +28,5 @@
         ];
       };
     };
-  };
-
-  # the nixConfig here only affects the flake itself, not the system configuration!
-  nixConfig = {
-    experimental-features = [
-      "nix-command"
-      "flakes"
-    ];
-
-    substituters = [
-      # replace official cache with a mirror located in China
-      "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
-      "https://mirror.sjtu.edu.cn/nix-channels/store"
-      "https://cache.nixos.org"
-    ];
   };
 }

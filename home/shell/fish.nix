@@ -17,7 +17,8 @@
           . $HOME/.nix-profile/etc/profile.d/nix.sh;
         fi
 
-        export PATH=$HOME/.local/bin:$PATH
+        export EDITOR=vim
+        export PATH=$HOME/.local/bin:$HOME/.bun/bin:$PATH
 
         # if it is interactive shell and fish exists，auto launch fish
         if [[ $- == *i* ]] && command -v fish &> /dev/null && [[ -z "$FISH_VERSION" ]]; then
@@ -35,6 +36,7 @@
       shellAliases = {
         "ls" = "eza";
         "l" = "eza -lah --icons=auto";
+        "opencode" = "bun $(which opencode)";
       };
       shellInit = ''
         zoxide init fish | source
@@ -44,7 +46,7 @@
         if status --is-interactive
           set -gx LANG en_US.UTF-8
           set -gx LC_ALL en_US.UTF-8
-          krabby random 1-3 | tail -n +2
+          command -q krabby && krabby random 1-3 | tail -n +2
         end
       '';
       plugins = with pkgs.fishPlugins; [

@@ -10,11 +10,13 @@ NIX_BUILD_GROUP_ID=40000 NIX_FIRST_BUILD_UID=40001 sh <(curl --proto '=https' --
 
 > The default `GID=30000` is occupied on our servers, use `40000` instead.
 
-Enable experimental features:
+Enable experimental features and add optional substituters:
 
 ```bash
-echo 'experimental-features = nix-command flakes auto-allocate-uids
-auto-allocate-uids = true' | sudo tee -a /etc/nix/nix.conf
+echo "experimental-features = nix-command flakes auto-allocate-uids
+auto-allocate-uids = true
+substituters = https://cache.nixos.org https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store https://mirror.sjtu.edu.cn/nix-channels/store" \
+| sudo tee -a /etc/nix/nix.conf
 ```
 
 ### Apply flakes
@@ -23,7 +25,7 @@ NOTES:
 - Backup your `.bashrc` & `.profile` first, `home-manager` will take charge of these files.
 - Find `username` and `useremail` in `flake.nix` and change them to your own ones.
 
-Inside this directory, run
+Inside this directory, run `just s`, or manually run the follows:
 
 ```bash
 nix run nixpkgs#home-manager -- switch --flake .
