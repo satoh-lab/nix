@@ -47,3 +47,23 @@ home-manager switch --flake .
 - Copy the template files (`flake.nix` & `justfile`) for the corresponding language to the project's root directory.
 - Run `just dev`.
 - Entering the directory will automatically activate the development environment.
+
+## Tips: Relocating the Nix Store Using Bind Mount
+
+If your root partition (`/`) is running out of space due to a growing `/nix` directory (our servers only have 32G for `/`), you can move it to a larger partition (e.g., `/var`) using a **Bind Mount** instead of a symbolic link (symlink is not allowed for the Nix store and its parent directories).
+
+1. **Stop Services**: 
+   `sudo systemctl stop nix-daemon.socket nix-daemon.service`
+2. **Relocate Data**: 
+   `sudo mv /nix /var/nix`
+3. **Prepare Mount Point**: 
+   `sudo rm /nix` (remove the failed symlink) and `sudo mkdir /nix` (create a clean directory).
+4. **Execute Bind Mount**: 
+   `sudo mount --bind /var/nix /nix`
+5. **Persist the Change**: 
+   Add the following line to your `/etc/fstab` to ensure it remounts on reboot:
+   `/var/nix  /nix  none  bind  0  0`
+6. **Restart Services**: 
+   `sudo systemctl daemon-reload && sudo systemctl start nix-daemon.socket nix-daemon.service`
+
+**Result**: Your Nix data physically resides in `/var`, but the system safely accesses it via `/nix`, keeping your root partition clean.
