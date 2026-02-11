@@ -1,29 +1,45 @@
+{ pkgs, ... }:
 {
   imports = [
-    ./fish.nix
+    ./bash.nix
   ];
+
+  home.packages = with pkgs; [
+    krabby
+  ];
+
+  home.sessionVariables = {
+    EDITOR = "vim";
+    UV_CACHE_DIR = "$HOME/.cache/uv";
+    BUN_INSTALL = "$HOME/.bun";
+    BUN_INSTALL_CACHE_DIR = "$HOME/.cache/bun";
+  };
+
+  home.sessionPath = [
+    "$HOME/.local/bin"
+    "$BUN_INSTALL/bin"
+  ];
+
+  # warn: force to overwrite existing files
+  home.file.".bashrc".force = true;
+  home.file.".profile".force = true;
 
   programs = {
     # A cross-shell prompt
     starship = {
       enable = true;
       enableBashIntegration = true;
+      enableZshIntegration = true;
       enableFishIntegration = true;
-    };
-
-    # The environment switcher
-    direnv = {
-      enable = true;
-      nix-direnv.enable = true;
-      enableBashIntegration = true;
-      # the direnv package automatically gets loaded in Fish
-      # enableFishIntegration = true;
     };
 
     # A command-line fuzzy finder
     fzf = {
       enable = true;
-      enableBashIntegration = true;
+      fileWidgetCommand = "fd --strip-cwd-prefix";
+      changeDirWidgetCommand = "fd --type d";
+      enableBashIntegration = false; # managed by ble.sh
+      enableZshIntegration = true;
       enableFishIntegration = true;
     };
 
@@ -31,6 +47,7 @@
     zoxide = {
       enable = true;
       enableBashIntegration = true;
+      enableZshIntegration = true;
       enableFishIntegration = true;
     };
 
@@ -38,19 +55,12 @@
     eza = {
       enable = true;
       enableBashIntegration = true;
+      enableZshIntegration = true;
       enableFishIntegration = true;
     };
 
     # a cat(1) clone with syntax highlighting and Git integration.
     bat.enable = true;
-
-    # replacement of htop/nmon
-    btop = {
-      enable = true;
-      settings = {
-        theme_background = false; # make btop transparent
-      };
-    };
 
     # A modern replacement for screen/tmux
     zellij.enable = true;

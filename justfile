@@ -1,4 +1,5 @@
 alias s := switch
+alias c := clean
 
 switch:
     #!/usr/bin/env bash
@@ -11,3 +12,8 @@ switch:
     else
         nix run nixpkgs#home-manager -- switch --flake .
     fi
+
+clean:
+    #!/usr/bin/env bash
+    home-manager expire-generations "-7 days"
+    nix-collect-garbage -d

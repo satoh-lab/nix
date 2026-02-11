@@ -24,6 +24,7 @@ substituters = https://cache.nixos.org https://mirrors.tuna.tsinghua.edu.cn/nix-
 NOTES:
 - Backup your `.bashrc` & `.profile` first, `home-manager` will take charge of these files.
 - Find `username` and `useremail` in `flake.nix` and change them to your own ones.
+- Choose your favorite shell in `home/shell/default.nix`, e.g., use `imports = [ ./fish.nix ];` to enable the fish shell.
 
 Inside this directory, run `just s`, or manually run the follows:
 

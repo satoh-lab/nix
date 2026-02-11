@@ -26,6 +26,7 @@
   home.packages = with pkgs; [
     fastfetchMinimal
     ripgrep
+    jq
     # Simple, fast and user-friendly alternative to find
     fd
     # Handy way to save and run project-specific commands
@@ -35,9 +36,13 @@
     # An extremely fast Python package and project manager
     uv
     # pixi # try pixi as well
+    pyright
 
     # JavaScript runtime
     bun
+    deno
+
+    yazi
   ];
 
   home.stateVersion = "25.05";

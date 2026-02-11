@@ -1,68 +1,58 @@
 { pkgs, ... }:
 {
-  home.packages = with pkgs; [
-    krabby
-  ];
+  programs.bash = {
+    enable = true;
+    enableCompletion = false;
+    initExtra = ''
+      # the profile added by Nix Installer
+      if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then
+        . $HOME/.nix-profile/etc/profile.d/nix.sh;
+      fi
 
-  # warn: force to overwrite existing files
-  home.file.".bashrc".force = true;
-  home.file.".profile".force = true;
+      if it is interactive shell and fish exists, auto launch fish
+      if [[ $- == *i* ]] && command -v fish &> /dev/null && [[ -z "$FISH_VERSION" ]]; then
+        exec fish
+      fi
+    '';
+  };
 
-  programs = {
-    bash = {
-      enable = true;
-      initExtra = ''
-        # the profile added by Nix Installer
-        if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then
-          . $HOME/.nix-profile/etc/profile.d/nix.sh;
-        fi
-
-        export EDITOR=vim
-        export PATH=$HOME/.local/bin:$HOME/.bun/bin:$PATH
-
-        # if it is interactive shell and fish exists，auto launch fish
-        if [[ $- == *i* ]] && command -v fish &> /dev/null && [[ -z "$FISH_VERSION" ]]; then
-          exec fish
-        fi
-      '';
+  programs.fish = {
+    enable = true;
+    shellAbbrs = {
+      cd = "z";
+      g = "git";
+      j = "just";
     };
-
-    fish = {
-      enable = true;
-      shellAbbrs = {
-        cd = "z";
-        # cat = "bat";
-      };
-      shellAliases = {
-        "ls" = "eza";
-        "l" = "eza -lah --icons=auto";
-        "opencode" = "bun $(which opencode)";
-      };
-      shellInit = ''
-        zoxide init fish | source
-        set -g fish_color_command = blue --italics
-        set -g fish_color_quote = yellow --italics
-        # only print pokemons on interactive shells
-        if status --is-interactive
-          set -gx LANG en_US.UTF-8
-          set -gx LC_ALL en_US.UTF-8
-          command -q krabby && krabby random 1-3 | tail -n +2
-        end
-      '';
-      plugins = with pkgs.fishPlugins; [
-        {
-          name = "puffer";
-          src = puffer.src;
-        }
-        {
-          name = "pisces";
-          src = pisces.src;
-        }
-      ];
-      functions = {
-        fish_greeting = "";
-        fish_config = "";
-      };
+    shellAliases = {
+      l = "eza -lah --icons=auto";
+      lt = "eza --tree --level=2 --icons=auto";
+      opencode = "bun $(which opencode)";
+      codex = "bun $(which codex)";
+      cat = "bat -p --paging=never";
+    };
+    shellInit = ''
+      zoxide init fish | source
+      set -g fish_color_command = blue --italics
+      set -g fish_color_quote = yellow --italics
+      # only print pokemons on interactive shells
+      if status --is-interactive
+        set -gx LANGUAGE en
+        command -q krabby && krabby random 1-3 | tail -n +2
+      end
+    '';
+    plugins = with pkgs.fishPlugins; [
+      {
+        name = "puffer";
+        src = puffer.src;
+      }
+      {
+        name = "done";
+        src = done.src;
+      }
+    ];
+    functions = {
+      fish_greeting = "";
+      fish_config = "";
     };
   };
 }
