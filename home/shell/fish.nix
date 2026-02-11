@@ -9,7 +9,7 @@
         . $HOME/.nix-profile/etc/profile.d/nix.sh;
       fi
 
-      if it is interactive shell and fish exists, auto launch fish
+      # if it is interactive shell and fish exists, auto launch fish
       if [[ $- == *i* ]] && command -v fish &> /dev/null && [[ -z "$FISH_VERSION" ]]; then
         exec fish
       fi

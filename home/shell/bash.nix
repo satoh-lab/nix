@@ -70,7 +70,9 @@
     bleopt complete_auto_delay=300
     bleopt prompt_eol_mark=' '
     bleopt exec_errexit_mark=
-    bleopt exec_exit_mark=
+    # bleopt exec_exit_mark=
+
+    ble-bind -x C-l 'command clear -x'
 
     # Catppuccin Mocha inspired theme for ble.sh
     ble-face command_alias='fg=#a6e3a1,italic'

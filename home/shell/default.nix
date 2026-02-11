@@ -10,7 +10,6 @@
 
   home.sessionVariables = {
     EDITOR = "vim";
-    UV_CACHE_DIR = "$HOME/.cache/uv";
     BUN_INSTALL = "$HOME/.bun";
     BUN_INSTALL_CACHE_DIR = "$HOME/.cache/bun";
   };
