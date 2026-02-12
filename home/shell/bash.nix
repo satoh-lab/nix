@@ -15,51 +15,49 @@
     historyIgnore = [ "ls" "l" "lt" "cd" "pwd" "exit" "clear" "history" ];
 
     shellAliases = {
-      l  = "eza -lah --icons=auto";
-      lt = "eza --tree --level=2 --icons=auto";
+      l  = "eza -lah";
+      lt = "eza --tree --level=2";
       cat = "bat --style=plain --paging=never";
       opencode = "bun $(which opencode)";
       codex = "bun $(which codex)";
     };
 
-    initExtra = ''
-      if [[ $- == *i* ]]; then
-        export LANGUAGE=en
-        
-        # Load Home Manager session variables in interactive shells (VSCode etc.)
-        if [ -f "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh" ]; then
-          source "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
-        fi
-
-        # Append instead of overwrite
-        shopt -s histappend
-        # Add timestamps to history
-        export HISTTIMEFORMAT="%F %T  "
-        # Multi-terminal safe sync (FAST)
-        __history_sync() {
-          builtin history -a   # append new lines
-          builtin history -n   # read new lines
-        }
-
-        PROMPT_COMMAND="__history_sync''${PROMPT_COMMAND:+;$PROMPT_COMMAND}"
-
-        # Typo fixing
-        shopt -s cdspell
-        # Enter dir directly without cd
-        shopt -s autocd
-
-        if [ -d "$HOME/.config/bash/completions" ]; then
-          for f in "$HOME/.config/bash/completions"/*.bash; do
-            source "$f"
-          done
-        fi
-
-        if [[ -f ${pkgs.blesh}/share/blesh/ble.sh ]]; then
-          source ${pkgs.blesh}/share/blesh/ble.sh
-        fi
-
-        command -v krabby >/dev/null 2>&1 && krabby random 1-3 | tail -n +2
+    # Note that these commands will be run even in non-interactive shells
+    bashrcExtra = ''
+      export LANGUAGE=en
+      
+      if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+        . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
       fi
+
+      if [ -f "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh" ]; then
+        source "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
+      fi
+    '';
+
+    # Extra commands that should be run when initializing an interactive shell
+    initExtra = ''
+      shopt -s cdspell
+      shopt -s autocd
+      shopt -s histappend
+      export HISTTIMEFORMAT="%F %T  "
+      __history_sync() {
+        builtin history -a   # append new lines
+        builtin history -n   # read new lines
+      }
+      PROMPT_COMMAND="__history_sync''${PROMPT_COMMAND:+;$PROMPT_COMMAND}"
+
+      if [ -d "$HOME/.config/bash/completions" ]; then
+        for f in "$HOME/.config/bash/completions"/*.bash; do
+          source "$f"
+        done
+      fi
+
+      if [[ -f ${pkgs.blesh}/share/blesh/ble.sh ]]; then
+        source ${pkgs.blesh}/share/blesh/ble.sh
+      fi
+
+      command -v krabby >/dev/null 2>&1 && krabby random 1-3 | tail -n +2
     '';
   };
 

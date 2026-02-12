@@ -2,15 +2,15 @@
 {
   programs.bash = {
     enable = true;
-    enableCompletion = false;
-    initExtra = ''
+    bashrcExtra = ''
       # the profile added by Nix Installer
-      if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then
-        . $HOME/.nix-profile/etc/profile.d/nix.sh;
+      if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+        . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
       fi
-
+    '';
+    initExtra = ''
       # if it is interactive shell and fish exists, auto launch fish
-      if [[ $- == *i* ]] && command -v fish &> /dev/null && [[ -z "$FISH_VERSION" ]]; then
+      if command -v fish &> /dev/null && [[ -z "$FISH_VERSION" ]]; then
         exec fish
       fi
     '';
@@ -24,8 +24,8 @@
       j = "just";
     };
     shellAliases = {
-      l = "eza -lah --icons=auto";
-      lt = "eza --tree --level=2 --icons=auto";
+      l = "eza -lah";
+      lt = "eza --tree --level=2";
       opencode = "bun $(which opencode)";
       codex = "bun $(which codex)";
       cat = "bat -p --paging=never";
