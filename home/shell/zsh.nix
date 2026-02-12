@@ -45,8 +45,9 @@
       l = "eza -lah";
       lt = "eza --tree --level=2";
       cat = "bat --style=plain --paging=never";
-      opencode = "bun $(which opencode)";
-      codex = "bun $(which codex)";
+      opencode = "bunx opencode";
+      codex = "bunx codex";
+      agent-browser = "bunx agent-browser";
 
       # Safety operations
       cp = "cp -i";   # Confirm before overwriting

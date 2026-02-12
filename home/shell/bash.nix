@@ -18,8 +18,9 @@
       l  = "eza -lah";
       lt = "eza --tree --level=2";
       cat = "bat --style=plain --paging=never";
-      opencode = "bun $(which opencode)";
-      codex = "bun $(which codex)";
+      opencode = "bunx opencode";
+      codex = "bunx codex";
+      agent-browser = "bunx agent-browser";
     };
 
     # Note that these commands will be run even in non-interactive shells
@@ -30,8 +31,8 @@
         . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
       fi
 
-      if [ -f "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh" ]; then
-        source "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
+      if [ -f "$HOME/.profile" ]; then
+        source "$HOME/.profile"
       fi
     '';
 

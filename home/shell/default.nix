@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, secrets, ... }:
 {
   imports = [
     ./bash.nix
@@ -37,7 +37,7 @@
       enable = true;
       fileWidgetCommand = "fd --strip-cwd-prefix";
       changeDirWidgetCommand = "fd --type d";
-      enableBashIntegration = false; # managed by ble.sh
+      enableBashIntegration = true;
       enableZshIntegration = true;
       enableFishIntegration = true;
     };

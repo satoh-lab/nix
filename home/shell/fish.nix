@@ -26,8 +26,9 @@
     shellAliases = {
       l = "eza -lah";
       lt = "eza --tree --level=2";
-      opencode = "bun $(which opencode)";
-      codex = "bun $(which codex)";
+      opencode = "bunx opencode";
+      codex = "bunx codex";
+      agent-browser = "bunx agent-browser";
       cat = "bat -p --paging=never";
     };
     shellInit = ''
