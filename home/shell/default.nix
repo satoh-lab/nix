@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   imports = [
-    ./fish.nix
+    ./bash.nix
   ];
 
   home.packages = with pkgs; [
@@ -30,6 +30,16 @@
       enableBashIntegration = true;
       enableZshIntegration = true;
       enableFishIntegration = true;
+    };
+
+    # The environment switcher
+    direnv = {
+      enable = true;
+      nix-direnv.enable = true;
+      enableBashIntegration = true;
+      enableZshIntegration = true;
+      # the direnv package automatically gets loaded in Fish
+      # enableFishIntegration = true;
     };
 
     # A command-line fuzzy finder
