@@ -3,9 +3,14 @@
   programs.bash = {
     enable = true;
     bashrcExtra = ''
-      # the profile added by Nix Installer
+      export LANGUAGE=en
+
       if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
         . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+      fi
+
+      if [ -f "$HOME/.profile" ]; then
+        source "$HOME/.profile"
       fi
     '';
     initExtra = ''
@@ -75,7 +80,6 @@
         fi
 
         if [[ $- == *i* ]]; then
-          export LANGUAGE=en
           command -v krabby >/dev/null && krabby random 1-3 | tail -n +2
         fi
       '')

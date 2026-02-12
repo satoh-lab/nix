@@ -1,7 +1,7 @@
-{ pkgs, secrets, ... }:
+{ pkgs, ... }:
 {
   imports = [
-    ./bash.nix
+    ./fish.nix
   ];
 
   home.packages = with pkgs; [
