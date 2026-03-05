@@ -12,6 +12,8 @@
     EDITOR = "vim";
     BUN_INSTALL = "$HOME/link/.bun";
     BUN_INSTALL_CACHE_DIR = "$HOME/link/.cache/bun";
+    UV_CACHE_DIR = "$HOME/link/.cache/uv";
+    HF_HOME = "$HOME/link/.cache/huggingface";
   };
 
   home.sessionPath = [

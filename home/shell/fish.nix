@@ -3,8 +3,6 @@
   programs.bash = {
     enable = true;
     bashrcExtra = ''
-      export LANGUAGE=en
-
       if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
         . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
       fi
@@ -14,6 +12,8 @@
       fi
     '';
     initExtra = ''
+      export LANGUAGE=en
+
       # if it is interactive shell and fish exists, auto launch fish
       if command -v fish &> /dev/null && [[ -z "$FISH_VERSION" ]]; then
         exec fish

@@ -40,7 +40,7 @@
 
     # JavaScript runtime
     bun
-    deno
+    typescript-language-server
 
     yazi
   ];
