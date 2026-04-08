@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   imports = [
-    ./bash.nix
+    ./fish.nix
   ];
 
   home.packages = with pkgs; [
@@ -10,27 +10,26 @@
 
   home.sessionVariables = {
     EDITOR = "vim";
+    NPM_CONFIG_PREFIX = "$HOME/link/.npm";
+    NPM_CONFIG_CACHE = "$HOME/link/.cache/npm";
     BUN_INSTALL = "$HOME/link/.bun";
     BUN_INSTALL_CACHE_DIR = "$HOME/link/.cache/bun";
     UV_CACHE_DIR = "$HOME/link/.cache/uv";
+    UV_TOOL_DIR = "$HOME/link/.local/share/uv/tools";
+    UV_PYTHON_INSTALL_DIR = "$HOME/link/.local/share/uv/python";
     HF_HOME = "$HOME/link/.cache/huggingface";
   };
 
   home.sessionPath = [
     "$HOME/.local/bin"
+    "$NPM_CONFIG_PREFIX/bin"
     "$BUN_INSTALL/bin"
   ];
-
-  # warn: force to overwrite existing files
-  home.file.".bashrc".force = true;
-  home.file.".profile".force = true;
 
   programs = {
     # A cross-shell prompt
     starship = {
       enable = true;
-      enableBashIntegration = true;
-      enableZshIntegration = true;
       enableFishIntegration = true;
     };
 
@@ -38,8 +37,6 @@
     direnv = {
       enable = true;
       nix-direnv.enable = true;
-      enableBashIntegration = true;
-      enableZshIntegration = true;
       # the direnv package automatically gets loaded in Fish
       # enableFishIntegration = true;
     };
@@ -49,24 +46,18 @@
       enable = true;
       fileWidgetCommand = "fd --strip-cwd-prefix";
       changeDirWidgetCommand = "fd --type d";
-      enableBashIntegration = true;
-      enableZshIntegration = true;
       enableFishIntegration = true;
     };
 
     # A smarter cd command
     zoxide = {
       enable = true;
-      enableBashIntegration = true;
-      enableZshIntegration = true;
       enableFishIntegration = true;
     };
 
     # A modern replacement for ls
     eza = {
       enable = true;
-      enableBashIntegration = true;
-      enableZshIntegration = true;
       enableFishIntegration = true;
     };
 

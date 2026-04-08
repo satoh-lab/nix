@@ -1,19 +1,12 @@
 { pkgs, ... }:
 {
+  # warn: force to overwrite existing files
+  home.file.".bashrc".force = true;
+  home.file.".profile".force = true;
+
   programs.bash = {
     enable = true;
-    bashrcExtra = ''
-      if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
-        . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
-      fi
-
-      if [ -f "$HOME/.profile" ]; then
-        source "$HOME/.profile"
-      fi
-    '';
     initExtra = ''
-      export LANGUAGE=en
-
       # if it is interactive shell and fish exists, auto launch fish
       if command -v fish &> /dev/null && [[ -z "$FISH_VERSION" ]]; then
         exec fish
@@ -31,20 +24,18 @@
     shellAliases = {
       l = "eza -lah";
       lt = "eza --tree --level=2";
+      cat = "bat -p --paging=never";
       opencode = "bunx opencode";
       codex = "bunx codex";
       agent-browser = "bunx agent-browser";
-      cat = "bat -p --paging=never";
     };
-    shellInit = ''
+    interactiveShellInit = ''
+      set -gx LANGUAGE en
+
       zoxide init fish | source
-      set -g fish_color_command = blue --italics
-      set -g fish_color_quote = yellow --italics
-      # only print pokemons on interactive shells
-      if status --is-interactive
-        set -gx LANGUAGE en
-        command -q krabby && krabby random 1-3 | tail -n +2
-      end
+      set -g fish_features no-expand-full qmark-noglob stderr-nocaret
+
+      fish_config theme choose "catppuccin-mocha"
     '';
     plugins = with pkgs.fishPlugins; [
       {
@@ -57,8 +48,17 @@
       }
     ];
     functions = {
-      fish_greeting = "";
-      fish_config = "";
+      fish_greeting = ''
+        # print pokemons
+        command -q krabby && krabby random 1-3 | tail -n +2
+
+        # set italics
+        for var in fish_color_command fish_color_quote
+          set color (string match -r '^[^-].*' -- $$var)[1]
+          set -U $var $color --italics
+          set -e $var
+        end
+      '';
     };
   };
 }

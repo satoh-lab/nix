@@ -24,7 +24,6 @@
   };
 
   home.packages = with pkgs; [
-    fastfetchMinimal
     ripgrep
     jq
     # Simple, fast and user-friendly alternative to find
@@ -40,10 +39,9 @@
 
     # JavaScript runtime
     bun
+    nodejs_22
     typescript-language-server
-
-    yazi
   ];
 
-  home.stateVersion = "25.05";
+  home.stateVersion = "25.11";
 }
