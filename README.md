@@ -51,7 +51,7 @@ If your root partition (`/`) is running out of space due to a growing `/nix` dir
 3. **Check Integrity**:
    `sudo diff -rq --no-dereference /nix /home/nix`
 4. **Remove Old Directory**: 
-   `sudo rm /nix`
+   `sudo rm -rf /nix`
 5. **Execute Bind Mount**: 
    `sudo mount --bind /home/nix /nix`
 6. **Persist the Change**: 
